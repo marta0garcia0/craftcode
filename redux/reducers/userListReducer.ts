@@ -1,5 +1,5 @@
 import { Message } from '../../models/message';
-import { User } from '../../models/user';
+import { User, Friend } from '../../models/user';
 import { ADD_FRIEND, SEND_MESSAGE, SET_USER, SET_LOGGED_USER, ADD_USER_LIST, SET_USER_LIST } from '../actions/userLIstActions';
 
 interface State {
@@ -13,26 +13,41 @@ const userListReducer = (state: State = {selectedUser: null, loggedUser: null, u
         case SET_LOGGED_USER:
             return {...state, loggedUser: action.payload};
         case ADD_USER_LIST:
-            state.users.push(action.payload);
             return {...state, users: state.users.concat(action.payload)};
         case SET_USER_LIST:
             return {...state, users: action.payload};
         case SET_USER:
             return {...state, selectedUser: state.users.find((user) => user.id === parseInt(action.payload))};
         case ADD_FRIEND:
-            let modifiedUser;
+            let modifiedUser, modifiedFriend;
             const userList = state.users.map((user) => {
-                if (user.id === action.payload.loggedUser.id) {
-                    const friends = user.friends ? user.friends.concat(action.payload.friend) : [action.payload.friend];
+                if (user.id === action.payload.loggedUser.id &&
+                        (!user.friends || !user.friends.find(friend => friend.user.id === action.payload.friend.id) )) {
+                    const friends = user.friends ? 
+                        user.friends.concat({
+                            user: action.payload.friend,
+                            chat: []
+                        } as Friend) : [{user: action.payload.friend, chat: []}];
                     modifiedUser = {...user, friends}
-                    return;
+                    return modifiedUser;
+                }
+                if (user.id === action.payload.friend.id &&
+                        (!user.friends || !user.friends.find(friend => friend.user.id === action.payload.friend.id) )) {
+                    const friends = user.friends ? 
+                        user.friends.concat({
+                            user: action.payload.loggedUser,
+                            chat: []
+                        } as Friend) : [{user: action.payload.loggedUser, chat: []}];
+                    modifiedFriend = {...user, friends}
+                    return modifiedFriend;
                 }
                 return user;
             });
-        return {...state, loggedUser: modifiedUser, users: userList};
+        return {...state, loggedUser: modifiedUser ? modifiedUser : state.loggedUser,
+                selectedUser: modifiedFriend ? modifiedFriend : state.selectedUser, users: userList};
         case SEND_MESSAGE:
-            const sender = state.users.find((user) => user.id === parseInt(action.payload.sender));
-            const receiver = state.users.find((user) => user.id === parseInt(action.payload.receiver));
+            const sender = state.users.find((user) => user.id === parseInt(action.payload.sender.id));
+            const receiver = state.users.find((user) => user.id === parseInt(action.payload.receiver.id));
             const message = action.payload.message;
             let senderModified;
             let receiverModified;

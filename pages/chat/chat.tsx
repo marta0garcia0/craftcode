@@ -31,6 +31,7 @@ function ChatPage() {
 			friend: user
 		}});
 	}
+	const friend = state.users.loggedUser.friends && state.users.loggedUser.friends.find(friend => friend.user.id === user.id);
 	return (
 		<main>
             <div>You're logged as:
@@ -45,7 +46,7 @@ function ChatPage() {
                 Back
             </button>
 			{
-				state.users.loggedUser.friends && state.users.loggedUser.friends.find(friend => friend.id === user.id) ?
+				state.users.loggedUser.friends && friend ?
 					<div>
 						<label>
 							Write a message:
@@ -54,7 +55,19 @@ function ChatPage() {
 						<button onClick={() => handleSubmit()}>
 							Send
 						</button>
+						<div>
+							CHAT
+							<div>
+							{friend.chat.map((message) => {
+							return <div key={message.date}>
+										<span>{message.sender.username}</span>
+										<span>{message.date}</span>
+										<span>{message.text}</span>
+									</div>
+							})}
+							</div>
 					</div>
+				</div>
 				:
 				<button onClick={() => handleAddFriend()}>Add as friend</button>
 			}

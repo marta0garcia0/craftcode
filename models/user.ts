@@ -14,7 +14,7 @@ interface Company {
     name: string,
 }
 
-interface Friend {
+export interface Friend {
     user: User,
     chat: Message[]
 }
