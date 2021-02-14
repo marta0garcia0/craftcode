@@ -1,3 +1,5 @@
+import { Message } from "./message";
+
 interface Address {
     city: string,
     geo: {lat: string, lng: string},
@@ -12,6 +14,11 @@ interface Company {
     name: string,
 }
 
+interface Friend {
+    user: User,
+    chat: Message[]
+}
+
 export interface User {
     id: number,
     name: string,
@@ -21,4 +28,5 @@ export interface User {
     company: Company,
     phone: string,
     website: string,
+    friends?: Friend[]
 }

@@ -2,17 +2,26 @@
   "dependencies": {
     "axios": "^0.21.1",
     "next": "^10.0.6",
+    "next-redux-wrapper": "^6.0.2",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
+    "styled-components": "^5.2.1"
   },
   "devDependencies": {
     "@types/react": "^17.0.2",
-    "now": "^21.0.1"
+    "now": "^21.0.1",
+    "redux-logger": "^3.0.6"
   },
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start",
     "deploy": "now"
+  },
+  "resolutions": {
+    "styled-components": "^5"
   }
 }
