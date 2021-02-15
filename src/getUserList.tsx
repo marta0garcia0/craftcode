@@ -1,5 +1,5 @@
-import { usersData } from '../constants';
-import { SET_USER_LIST } from '../redux/actions/userLIstActions';
+import { usersData } from './constants';
+import { SET_USER_LIST } from './redux/actions/userLIstActions';
 
 export async function getUserList(ctx) {
     const state = ctx.store.getState();

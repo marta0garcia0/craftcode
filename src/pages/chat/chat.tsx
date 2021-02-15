@@ -1,4 +1,4 @@
-import React, { useState } from'react';
+import React, { useEffect, useState } from'react';
 import Link from'next/link';
 import { useRouter } from 'next/router'
 import { ADD_FRIEND, SET_USER, SEND_MESSAGE } from '../../redux/actions/userLIstActions';
@@ -31,7 +31,12 @@ function ChatPage() {
 			friend: user
 		}});
 	}
-	const friend = state.users.loggedUser.friends && state.users.loggedUser.friends.find(friend => friend.user.id === user.id);
+	useEffect(() => {
+		if (!state.users.loggedUser) {
+			router.push('/login')
+		}
+	});
+	const friend = state.users.loggedUser && state.users.loggedUser.friends && state.users.loggedUser.friends.find(friend => friend.user.id === user.id);
 	return (
 		<main>
             <div>You're logged as:
@@ -46,7 +51,7 @@ function ChatPage() {
                 Back
             </button>
 			{
-				state.users.loggedUser.friends && friend ?
+				state.users.loggedUser && state.users.loggedUser.friends && friend ?
 					<div>
 						<label>
 							Write a message:

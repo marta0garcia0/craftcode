@@ -8,7 +8,8 @@
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "typescript": "^4.1.5"
   },
   "devDependencies": {
     "@types/react": "^17.0.2",
@@ -18,8 +19,12 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
+    "build-next": "next build && next export",
     "start": "next start",
-    "deploy": "now"
+    "deploy": "now",
+    "docker:build": "docker build . -t craftcode/cra-docker",
+    "docker:run": "docker run -p 8080:80 craftcode/cra-docker --name react",
+    "docker:stop": "docker rm -f react"
   },
   "resolutions": {
     "styled-components": "^5"

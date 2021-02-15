@@ -1,7 +1,7 @@
 import React, { Component, useEffect } from'react';
 import Link from'next/link';
 import { User } from '../../models/user';
-import { getUserList } from '../getUserList';
+import { getUserList } from '../../getUserList';
 import { useRouter } from 'next/router';
 import withRedux from "next-redux-wrapper";
 import { persistor, store } from '../../redux/store';

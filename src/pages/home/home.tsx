@@ -1,7 +1,7 @@
 import React, { useEffect } from'react';
 import Link from'next/link';
 import { User } from '../../models/user';
-import { getUserList } from '../getUserList';
+import { getUserList } from '../../getUserList';
 import { useRouter } from 'next/router';
 import withRedux from 'next-redux-wrapper';
 import { store } from '../../redux/store';
@@ -22,10 +22,13 @@ function HomePage(props: IProps) {
 	}
 	    
 	useEffect(() => {
-		if (!props.users) {
+		if (!state.users.loggedUser) {
+			router.push('/login')
+		}
+		if (!props.users || props.users.length === 0) {
 			router.reload()
 		}
-	})
+	});
 	const state = makeStore().getState();
 	return (
 		<main>
@@ -33,7 +36,8 @@ function HomePage(props: IProps) {
 				{state.users.loggedUser && state.users.loggedUser.name}
 			</div>
 			{
-				props.users && props.users.filter(user => user.id !== state.users.loggedUser.id)
+				props.users && props.users.length > 0 && state.users.loggedUser &&
+					props.users.filter(user => user.id !== state.users.loggedUser.id)
 				.map(user => 
 					<div key={user.id} onClick={() => handleUserSelection(user)}>
 						<span>{user.name}</span>
