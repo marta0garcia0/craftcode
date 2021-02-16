@@ -5,6 +5,8 @@ import { getUserList } from '../../getUserList';
 import { useRouter } from 'next/router';
 import withRedux from 'next-redux-wrapper';
 import { store } from '../../redux/store';
+import Grid from '../../containers/grid/grid';
+import UserBox from '../../components/user-box/userBox';
 
 interface IProps {
 	users: User[],
@@ -30,32 +32,18 @@ function HomePage(props: IProps) {
 		}
 	});
 	const state = makeStore().getState();
+	const users = props.users && props.users.length > 0 && state.users.loggedUser &&
+		props.users.filter(user => user.id !== state.users.loggedUser.id);
+
 	return (
 		<main>
-			<div>You're logged as:
-				{state.users.loggedUser && state.users.loggedUser.name}
-			</div>
-			{
-				props.users && props.users.length > 0 && state.users.loggedUser &&
-					props.users.filter(user => user.id !== state.users.loggedUser.id)
-				.map(user => 
-					<div key={user.id} onClick={() => handleUserSelection(user)}>
-						<span>{user.name}</span>
-						<span>{user.username}</span>
-						<span>{user.email}</span>
-					</div>
-				)
-			}
-			<div>
-				<Link prefetch href='/'>
-					<a>Ir a <em>/</em></a>
-				</Link>
-			</div>
 			<div>
 				<Link prefetch href='/login'>
-					<a>Ir a <em>/login</em></a>
+					<a>Log as a different user<em></em></a>
 				</Link>
 			</div>			
+			<UserBox user={state.users.loggedUser}></UserBox>
+			<Grid users={users} handleUserSelection={handleUserSelection}></Grid>
 			<style>{`
 				h1 { color: blue; }
 			`}</style>

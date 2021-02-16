@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { SET_USER, ADD_FRIEND } from '../../redux/actions/userLIstActions';
 import withRedux from 'next-redux-wrapper';
 import { store } from '../../redux/store';
+import UserBox from '../../components/user-box/userBox';
 
 const makeStore = () => store;
 
@@ -37,7 +38,7 @@ function UserPage() {
 				{state.users.loggedUser && state.users.loggedUser.name}
 			</div>
             {user ?
-			    <h1>{user && user.name}</h1>
+				<UserBox complete={true} user={user}></UserBox>
             :
                 <span>The user doesn't exist</span>
             }

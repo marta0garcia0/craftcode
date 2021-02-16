@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import withRedux from "next-redux-wrapper";
 import { persistor, store } from '../../redux/store';
 import { SET_LOGGED_USER } from '../../redux/actions/userLIstActions';
+import Grid from '../../containers/grid/grid';
 
 interface IProps {
 	users: User[],
@@ -19,6 +20,7 @@ function LoginPage(props: IProps) {
 	const router = useRouter()
 	function handleUserSelection(user) {
 		makeStore().dispatch({type: SET_LOGGED_USER, payload: user});
+		router.push('/home');
 	}
 	  
 	useEffect(() => {
@@ -29,20 +31,7 @@ function LoginPage(props: IProps) {
 	return (
 		<main>
 			<span>Choose your user:</span>
-			{
-				props.users && props.users.map(user => 
-					<div key={user.id}>
-						<div className='user-container' onClick={() => handleUserSelection(user)}>
-							<span>{user.name}</span>
-							<span>{user.username}</span>
-							<span>{user.email}</span>
-						</div>
-					</div>
-				)
-			}
-			<Link prefetch href="/home">
-				<a>Ir a <em>/home</em></a>
-			</Link>
+			<Grid users={props.users} handleUserSelection={handleUserSelection}></Grid>
 			<style>{`
 				.user-container: {background-color: red}
 				h1 { color: blue; }
