@@ -7,6 +7,7 @@ import withRedux from 'next-redux-wrapper';
 import { store } from '../../redux/store';
 import Grid from '../../containers/grid/grid';
 import UserBox from '../../components/user-box/userBox';
+import Header from '../../containers/header/header';
 
 interface IProps {
 	users: User[],
@@ -37,16 +38,21 @@ function HomePage(props: IProps) {
 
 	return (
 		<main>
-			<div>
-				<Link prefetch href='/login'>
-					<a>Log as a different user<em></em></a>
-				</Link>
-			</div>			
-			<UserBox user={state.users.loggedUser}></UserBox>
-			<Grid users={users} handleUserSelection={handleUserSelection}></Grid>
-			<style>{`
-				h1 { color: blue; }
-			`}</style>
+			<Header user={state.users.loggedUser}></Header>
+			{state.users.loggedUser ?
+				<UserBox user={state.users.loggedUser}></UserBox> :
+				''
+			}
+			{state.users.loggedUser ?
+				<Grid loggedUser={state.users.loggedUser} users={users} handleUserSelection={handleUserSelection}></Grid> :
+				''
+			}
+				<style>{`
+					h1 { color: blue; }
+				`}</style>
+			:
+				''
+			}
 		</main>
 	);
 }

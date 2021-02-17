@@ -32,7 +32,7 @@ const userListReducer = (state: State = {selectedUser: null, loggedUser: null, u
                     return modifiedUser;
                 }
                 if (user.id === action.payload.friend.id &&
-                        (!user.friends || !user.friends.find(friend => friend.user.id === action.payload.friend.id) )) {
+                        (!user.friends || !user.friends.find(friend => friend.user.id === action.payload.loggedUser.id) )) {
                     const friends = user.friends ? 
                         user.friends.concat({
                             user: action.payload.loggedUser,
@@ -43,7 +43,7 @@ const userListReducer = (state: State = {selectedUser: null, loggedUser: null, u
                 }
                 return user;
             });
-        return {...state, loggedUser: modifiedUser ? modifiedUser : state.loggedUser,
+            return {...state, loggedUser: modifiedUser ? modifiedUser : state.loggedUser,
                 selectedUser: modifiedFriend ? modifiedFriend : state.selectedUser, users: userList};
         case SEND_MESSAGE:
             const sender = state.users.find((user) => user.id === parseInt(action.payload.sender.id));
@@ -56,7 +56,7 @@ const userListReducer = (state: State = {selectedUser: null, loggedUser: null, u
                     text: message,
                     sender: sender,
                     receiver: receiver,
-                    date: new Date()
+                    date: (new Date()).getTime()
                 };
                 if (user.id === action.payload.sender.id) {
                     const friends = user.friends.map(friend => {

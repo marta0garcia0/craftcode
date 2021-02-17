@@ -1,0 +1,6 @@
+html, body {
+    height: 100%;
+}
+#__next {
+    height: calc(100% - 16px);
+}

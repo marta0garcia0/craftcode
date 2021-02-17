@@ -7,6 +7,7 @@ import withRedux from "next-redux-wrapper";
 import { persistor, store } from '../../redux/store';
 import { SET_LOGGED_USER } from '../../redux/actions/userLIstActions';
 import Grid from '../../containers/grid/grid';
+import Header from '../../containers/header/header';
 
 interface IProps {
 	users: User[],
@@ -30,7 +31,7 @@ function LoginPage(props: IProps) {
 	})
 	return (
 		<main>
-			<span>Choose your user:</span>
+			<Header></Header>
 			<Grid users={props.users} handleUserSelection={handleUserSelection}></Grid>
 			<style>{`
 				.user-container: {background-color: red}
