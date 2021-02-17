@@ -48,14 +48,12 @@ function ChatPage() {
 	});
 
 	return (
-		<main>
+		<div style={{'height': '100%'}}>
 			<Header user={madeStore.getState().users.loggedUser}></Header>
-            <Button bg={'#FF595E'} text={'Back'} handleAction={() => handleBackSelection()}>
-            </Button>
 			<Chat user={user} loggedUser={madeStore.getState().users.loggedUser}
 				friend={friend} chat={chat} handleSubmit={handleSubmit} text={text}
-				setText={setText} handleAddFriend={handleAddFriend} />
-		</main>
+				setText={setText} handleAddFriend={handleAddFriend} handleBackSelection={handleBackSelection}/>
+		</div>
 	);
 }
 

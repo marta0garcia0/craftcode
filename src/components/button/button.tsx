@@ -1,7 +1,5 @@
 import React from'react';
-import styled, { css } from 'styled-components';
-import chroma from 'chroma-js';
-import UserBox from '../../components/user-box/userBox';
+import styled from 'styled-components';
 
 const Container = styled.button`
     background: ${props => (props.bg ? props.bg : "orange")};
@@ -11,14 +9,12 @@ const Container = styled.button`
     border: none;
     border-radius: 3px;
     font-weight: 500;
+    cursor: pointer;
 `;
 
-const Button = ({bg = null, text, handleAction}) => {
-	return (
-        <Container bg={bg} onClick={handleAction}>
-            {text}
-        </Container>
-	);
-}
+const Button = ({bg = '', text = '', handleAction}) => 
+    <Container bg={bg} onClick={handleAction}>
+        {text}
+    </Container>
 
 export default Button;

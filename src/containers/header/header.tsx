@@ -36,7 +36,7 @@ const Container = styled.div`
         padding-left: 10px;
     }
 `;
-const Header = ({user}) => {
+const Header = ({user = null}) => {
     const router = useRouter()
 	return (
         user ?
@@ -61,6 +61,11 @@ const Header = ({user}) => {
         :
             <Container>
                 <div className='left-options'>Choose your user:</div>
+                <div className='left-options'>
+                <Button text={'Home'}
+                    handleAction={() => router.push('/home')}>
+                </Button>
+            </div>
             </Container>
             
 	);

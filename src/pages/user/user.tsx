@@ -17,9 +17,8 @@ const Body = styled.div`
 		color: ${chroma.contrast(color, "black") >= 4 ? "black" : "white"};
 	`}
     position:relative;
-	top: 50px;
-    width: 100%;
-    height: calc(100% - 50px);
+    width: calc(100% - 20px);
+    height: calc(100% - 70px);
 	padding: 10px;
 `;
 const Container = styled.div`
@@ -58,28 +57,26 @@ function UserPage() {
 		<Container>
 			<Header user={state.users.loggedUser}></Header>
 			<Body>
-				<main>
-					<Button bg={'#FF595E'} text={'Chat'}
-						handleAction={() => handleChatSelection(router.query.id)}>
+				<Button bg={'#FF595E'} text={'Chat'}
+					handleAction={() => handleChatSelection(router.query.id)}>
+				</Button>
+				<div>
+				{
+					state.users.loggedUser && state.users.loggedUser.friends && friend ?
+					<span>{user.name} is added as friend</span> :
+					<Button text={'Add as friend'}
+						handleAction={() => handleAddFriend()}>
 					</Button>
-					<div>
-					{
-						state.users.loggedUser && state.users.loggedUser.friends && friend ?
-						<span>{user.name} is added as friend</span> :
-						<Button text={'Add as friend'}
-							handleAction={() => handleAddFriend()}>
-						</Button>
-					}
-					</div>
-					{user ?
-						<UserBox complete={true} user={user}></UserBox>
-					:
-						<span>The user doesn't exist</span>
-					}
-					<style>{`
-						h1 { color: red; }
-					`}</style>
-				</main>
+				}
+				</div>
+				{user ?
+					<UserBox complete={true} user={user}></UserBox>
+				:
+					<span>The user doesn't exist</span>
+				}
+				<style>{`
+					h1 { color: red; }
+				`}</style>
 			</Body>
 		</Container>
 	);

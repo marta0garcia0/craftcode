@@ -37,7 +37,7 @@ function HomePage(props: IProps) {
 		props.users.filter(user => user.id !== state.users.loggedUser.id);
 
 	return (
-		<main>
+		<div>
 			<Header user={state.users.loggedUser}></Header>
 			{state.users.loggedUser ?
 				<UserBox user={state.users.loggedUser}></UserBox> :
@@ -47,13 +47,7 @@ function HomePage(props: IProps) {
 				<Grid loggedUser={state.users.loggedUser} users={users} handleUserSelection={handleUserSelection}></Grid> :
 				''
 			}
-				<style>{`
-					h1 { color: blue; }
-				`}</style>
-			:
-				''
-			}
-		</main>
+		</div>
 	);
 }
 HomePage.getInitialProps = getUserList;

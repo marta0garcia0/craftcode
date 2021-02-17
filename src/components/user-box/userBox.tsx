@@ -8,7 +8,7 @@ const Container = styled.div`
     text-align: center;
 `;
 
-const UserBox = ({user, loggedUser, complete = false}) => {
+const UserBox = ({user, loggedUser = null, complete = false}) => {
 	return (
         <Container key={user.id}>
             <img src={'/images/user.png'} width={70}></img>
