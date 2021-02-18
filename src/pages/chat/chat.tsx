@@ -16,11 +16,11 @@ function ChatPage() {
 	const friend = store.getState().users.loggedUser && store.getState().users.loggedUser.friends && store.getState().users.loggedUser.friends.find(friend => friend.user.id === user.id);
 	const [chat, setChat] = useState(friend && friend.chat);
 
-	function handleBackSelection() {
+	const handleBackSelection = () => {
 		router.back();
-    }
+    };
 
-	function handleSubmit() {
+	const handleSubmit = () => {
 		const newChat = {
 			message: text,
 			sender: store.getState().users.loggedUser,
@@ -29,15 +29,15 @@ function ChatPage() {
 		store.dispatch({type: SEND_MESSAGE, payload: newChat});
 		setChat(store.getState().users.loggedUser.friends.find(friend => friend.user.id === user.id).chat);
 		setText('');
-	}
+	};
 
-	function handleAddFriend() {
+	const handleAddFriend = () => {
 		store.dispatch({type: ADD_FRIEND, payload: {
 			loggedUser: store.getState().users.loggedUser,
 			friend: user
 		}});
 		router.reload();
-	}
+	};
 
 	useEffect(() => {
 		if (!store.getState().users.loggedUser) {

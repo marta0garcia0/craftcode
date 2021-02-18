@@ -26,20 +26,22 @@ const Container = styled.div`
 
 function UserPage() {
     const router = useRouter()
-    function handleChatSelection(user) {
+    const handleChatSelection = (user) => {
 		router.push({
 			pathname: '/chat',
 			query: { id: user }
 		});
-    }
-    function handleAddFriend() {
+    };
+
+	const handleAddFriend = () => {
 		store.dispatch({type: ADD_FRIEND, payload: {
 			loggedUser: store.getState().users.loggedUser,
 			friend: user
 		}});
 		setUser(store.getState().users.selectedUser);
-	}
-    store.dispatch({type: SET_USER, payload: router.query.id ? router.query.id :
+	};
+
+	store.dispatch({type: SET_USER, payload: router.query.id ? router.query.id :
         router.asPath.replace('/user?id=', '')});
     const state = store.getState();
 	const [user, setUser] = useState(state.users.selectedUser);

@@ -1,7 +1,11 @@
-import { usersData } from './constants';
-import { SET_USER_LIST } from './redux/actions/userLIstActions';
+import React from'react';
+import { usersData } from '../constants';
+import { SET_USER_LIST, SET_LOGGED_USER } from '../redux/actions/userLIstActions';
 
-export async function getUserList(ctx) {
+
+function HOC() {
+}
+async function getUserList(ctx) {
     const state = ctx.store.getState();
     const userList = state.users.users;
     if (userList && userList.length > 0) {
@@ -20,3 +24,6 @@ export async function getUserList(ctx) {
         };
     }
 }
+HOC.getUserList = getUserList;
+
+export default (HOC);

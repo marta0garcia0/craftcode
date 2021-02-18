@@ -148,10 +148,12 @@ const Chat = ({user, loggedUser, text, friend, chat, handleSubmit, handleAddFrie
             messagesEndRef.current['scrollTop'] = messagesEndRef.current['scrollHeight'];
         }
 	});
-    function handleEnter() {
-        messagesEndRef.current['scrollTop'] = messagesEndRef.current['scrollHeight'];
-        return handleSubmit();
-    }
+    const handleEnter = (e?) => {
+        if (!e || e.keyCode === 13 || (e.nativeEvent && e.nativeEvent.keyCode === 13 || e.nativeEvent && e.nativeEvent.code === 'Enter')) {
+            messagesEndRef.current['scrollTop'] = messagesEndRef.current['scrollHeight'];
+            return handleSubmit();
+        }
+    };
 	return (
         <Container>
             <Button bg={'#FF595E'} text={'Back'} handleAction={() => handleBackSelection()} />
@@ -203,7 +205,7 @@ const Chat = ({user, loggedUser, text, friend, chat, handleSubmit, handleAddFrie
                                 <label>
                                     Write a message:
                                     <Input type="text" value={text} name="name"
-                                        onKeyDown={(e) => {if (e.nativeEvent.code === 'Enter') {handleEnter()}}}
+                                        onKeyDown={handleEnter}
                                         onChange={e => setText(e.target.value)}/>
                                 </label>
                                 <Button text={'send'} handleAction={() => handleEnter()} />

@@ -5,7 +5,7 @@ import { store } from '../../redux/store';
 import Grid from '../../containers/grid/grid';
 import UserBox from '../../components/user-box/userBox';
 import Header from '../../containers/header/header';
-import { getUserList } from '../../getUserList';
+import HOC from '../hoc';
 
 interface IProps {
 	users: User[],
@@ -13,12 +13,6 @@ interface IProps {
 
 function HomePage(props: IProps) {
 	const router = useRouter();
-	function handleUserSelection(user) {
-		router.push({
-			pathname: '/user',
-			query: { id: user.id }
-		});
-	}
 	const state = store.getState();
 	const users = props.users && props.users.length > 0 && state.users.loggedUser &&
 		props.users.filter(user => user.id !== state.users.loggedUser.id);
@@ -30,7 +24,13 @@ function HomePage(props: IProps) {
 			router.reload();
 		}
 	});
-	
+
+	const handleUserSelection = (user) => {
+		router.push({
+			pathname: '/user',
+			query: { id: user.id }
+		});
+	};
 	return (
 		<div>
 			<Header user={state.users.loggedUser}></Header>
@@ -46,6 +46,6 @@ function HomePage(props: IProps) {
 	);
 }
 
-HomePage.getInitialProps = getUserList;
+HomePage.getInitialProps = HOC.getUserList;
 
 export default (HomePage);

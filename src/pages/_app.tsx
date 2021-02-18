@@ -10,7 +10,8 @@ import '../styles.css'
 class MyApp extends App {
 
     static async getInitialProps({Component, ctx}) {
-        const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
+        const pageProps = Component.getInitialProps ?
+            await Component.getInitialProps(ctx) : {};
 
         //Anything returned here can be accessed by the client
         return {pageProps: pageProps};
