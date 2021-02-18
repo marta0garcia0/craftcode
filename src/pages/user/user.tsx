@@ -2,7 +2,6 @@ import React, { useEffect, useState } from'react';
 import Link from'next/link';
 import { useRouter } from 'next/router'
 import { SET_USER, ADD_FRIEND } from '../../redux/actions/userLIstActions';
-import withRedux from 'next-redux-wrapper';
 import { store } from '../../redux/store';
 import UserBox from '../../components/user-box/userBox';
 import chroma from 'chroma-js';
@@ -25,8 +24,6 @@ const Container = styled.div`
 	height: 100%;
 `;
 
-const makeStore = () => store;
-const madeStore = makeStore();
 function UserPage() {
     const router = useRouter()
     function handleChatSelection(user) {
@@ -36,16 +33,15 @@ function UserPage() {
 		});
     }
     function handleAddFriend() {
-		madeStore.dispatch({type: ADD_FRIEND, payload: {
-			loggedUser: madeStore.getState().users.loggedUser,
+		store.dispatch({type: ADD_FRIEND, payload: {
+			loggedUser: store.getState().users.loggedUser,
 			friend: user
 		}});
-		setUser(madeStore.getState().users.selectedUser);
-		// router.reload();
+		setUser(store.getState().users.selectedUser);
 	}
-    madeStore.dispatch({type: SET_USER, payload: router.query.id ? router.query.id :
+    store.dispatch({type: SET_USER, payload: router.query.id ? router.query.id :
         router.asPath.replace('/user?id=', '')});
-    const state = madeStore.getState();
+    const state = store.getState();
 	const [user, setUser] = useState(state.users.selectedUser);
 	const friend = state.users.loggedUser && state.users.loggedUser.friends && state.users.loggedUser.friends.find(friend => friend.user.id === user.id);
 	useEffect(() => {
@@ -58,15 +54,13 @@ function UserPage() {
 			<Header user={state.users.loggedUser}></Header>
 			<Body>
 				<Button bg={'#FF595E'} text={'Chat'}
-					handleAction={() => handleChatSelection(router.query.id)}>
-				</Button>
+					handleAction={() => handleChatSelection(router.query.id)} />
 				<div>
 				{
 					state.users.loggedUser && state.users.loggedUser.friends && friend ?
 					<span>{user.name} is added as friend</span> :
 					<Button text={'Add as friend'}
-						handleAction={() => handleAddFriend()}>
-					</Button>
+						handleAction={() => handleAddFriend()} />
 				}
 				</div>
 				{user ?
@@ -74,12 +68,9 @@ function UserPage() {
 				:
 					<span>The user doesn't exist</span>
 				}
-				<style>{`
-					h1 { color: red; }
-				`}</style>
 			</Body>
 		</Container>
 	);
 }
 
-export default withRedux(makeStore)(UserPage);
+export default (UserPage);

@@ -2,7 +2,7 @@ import React from'react';
 import styled from 'styled-components';
 
 const Container = styled.button`
-    background: ${props => (props.bg ? props.bg : "orange")};
+    background: ${props => (props.bg ? props.bg : 'orange')};
     color: white;
     font-size: 15px;
     padding: 10px 30px;
@@ -12,9 +12,12 @@ const Container = styled.button`
     cursor: pointer;
 `;
 
-const Button = ({bg = '', text = '', handleAction}) => 
-    <Container bg={bg} onClick={handleAction}>
-        {text}
-    </Container>
+const Button = ({bg = '', text = '', handleAction}) => {
+	return (
+        <Container bg={bg} onClick={handleAction}>
+            {text}
+        </Container>
+    );
+}
 
 export default Button;

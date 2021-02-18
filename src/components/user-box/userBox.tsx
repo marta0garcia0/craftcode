@@ -1,10 +1,8 @@
 import React from'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const Container = styled.div`
     margin: 40px 0 20px;
-    img {
-    }
     text-align: center;
 `;
 

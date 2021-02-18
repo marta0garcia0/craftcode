@@ -23,6 +23,5 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 export const store = createStore(persistedReducer, composeEnhancers(
     // uncomment to get store log, it may colapse your browser
     // applyMiddleware(logger)
-    )
-);
+));
 export const persistor = persistStore(store)

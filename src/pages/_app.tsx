@@ -30,7 +30,7 @@ class MyApp extends App {
     }
 }
 
-//makeStore function that returns a new store for every request
+// makeStore function that returns a new store for every request
 const makeStore = () => store;
 
 //withRedux wrapper that passes the store to the App Component

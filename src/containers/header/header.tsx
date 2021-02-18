@@ -49,8 +49,7 @@ const Header = ({user = null}) => {
                 </div>
                 <div className='left-options'>
                     <Button text={'Home'}
-                        handleAction={() => router.push('/home')}>
-                    </Button>
+                        handleAction={() => router.push('/home')} />
                 </div>
                 <div className='right-options'>
                     <Link prefetch href='/login'>
@@ -62,10 +61,8 @@ const Header = ({user = null}) => {
             <Container>
                 <div className='left-options'>Choose your user:</div>
                 <div className='left-options'>
-                <Button text={'Home'}
-                    handleAction={() => router.push('/home')}>
-                </Button>
-            </div>
+                    <Button text={'Home'} handleAction={() => router.push('/home')} />
+                </div>
             </Container>
             
 	);

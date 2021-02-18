@@ -16,30 +16,38 @@ const ChatContainer = styled.div`
     @media (min-width: 480px) {
         width: 400px;
         height: 423px;
-
+        .chat-list {
+            height: 280px;
+        }
     }
     @media (min-width: 768px) {
         width: 600px;
         height: 486px;
+        .chat-list {
+            height: 380px;
+        }
     }
     @media (min-width: 1024px) {
         width: 700px;
-        height: 586px;
+        height: 386px;
+        .chat-list {
+            height: 280px;
+        }
     }
+    @media (min-width: 1400px) {
+        width: 700px;
+        height: 586px;
+        .chat-list {
+            height: 480px;
+        }
+    }
+    width: 700px;
+    max-height: 586px;
     border: 1px solid blue;
     border-radius: 10px;
     background-color: lightblue;
     margin: 0 auto;
     .chat-list {
-        @media (min-width: 480px) {
-            height: 280px;
-        }
-        @media (min-width: 768px) {
-            height: 380px;
-        }
-        @media (min-width: 1024px) {
-            height: 480px;
-        }
         padding: 10px;
         overflow: hidden;
         overflow-y: scroll;
@@ -63,7 +71,6 @@ const ChatContainer = styled.div`
         bottom: 0px;
     }
     .sender {
-        position: relative;
         float: right;    
         width: 300px;
         background-color: lightgreen;
@@ -121,9 +128,6 @@ const ChatContainer = styled.div`
     .receiver:hover .tooltip {
         visibility: visible;
     }
-    .bubble-container {
-        display: block;
-    }
 `;
 const Input = styled.input`
   font-size: 14px;
@@ -136,7 +140,7 @@ const Input = styled.input`
     color: palevioletred;
   }
 `;
-const messagesEndRef = React.createRef()
+const messagesEndRef = React.createRef<HTMLDivElement>()
 
 const Chat = ({user, loggedUser, text, friend, chat, handleSubmit, handleAddFriend, handleBackSelection, setText}) => {
     useEffect(() => {
@@ -150,8 +154,7 @@ const Chat = ({user, loggedUser, text, friend, chat, handleSubmit, handleAddFrie
     }
 	return (
         <Container>
-            <Button bg={'#FF595E'} text={'Back'} handleAction={() => handleBackSelection()}>
-            </Button>
+            <Button bg={'#FF595E'} text={'Back'} handleAction={() => handleBackSelection()} />
             {user ?
 			    <h2>Chat with {user && user.name}</h2>
             :
@@ -166,27 +169,23 @@ const Chat = ({user, loggedUser, text, friend, chat, handleSubmit, handleAddFrie
                                     chat.map((message) => {
                                         if (message.sender.id === loggedUser.id) {
                                             return (
-                                                <div className='bubble-container'>
-                                                    <div className='bubble sender sb1' key={message.date}>
-                                                        <span style={{fontWeight: 'bold'}}>{message.sender.username}</span>
-                                                        <span style={{fontSize: '12px'}}>, {new Date(message.date).toLocaleString()}</span>
-                                                        <div><span>{message.text}</span></div>
-                                                        <div className='tooltip'>
-                                                            <span>{message.sender.name}</span>
-                                                        </div>
+                                                <div className='bubble sender sb1' key={message.date}>
+                                                    <span style={{fontWeight: 'bold'}}>{message.sender.username}</span>
+                                                    <span style={{fontSize: '12px'}}>, {new Date(message.date).toLocaleString()}</span>
+                                                    <div><span>{message.text}</span></div>
+                                                    <div className='tooltip'>
+                                                        <span>{message.sender.name}</span>
                                                     </div>
                                                 </div>
                                             )
                                         } else {
                                             return (
-                                                <div className='bubble-container'>
-                                                    <div className='bubble receiver sb2' key={message.date}>
-                                                        <span style={{fontWeight: 'bold'}}>{message.sender.username}</span>
-                                                        <span style={{fontSize: '12px'}}>, {new Date(message.date).toLocaleString()}</span>
-                                                        <div><span>{message.text}</span></div>
-                                                        <div className='tooltip'>
-                                                            <span>{message.sender.name}</span>
-                                                        </div>
+                                                <div className='bubble receiver sb2' key={message.date}>
+                                                    <span style={{fontWeight: 'bold'}}>{message.sender.username}</span>
+                                                    <span style={{fontSize: '12px'}}>, {new Date(message.date).toLocaleString()}</span>
+                                                    <div><span>{message.text}</span></div>
+                                                    <div className='tooltip'>
+                                                        <span>{message.sender.name}</span>
                                                     </div>
                                                 </div>
                                             )
@@ -194,10 +193,10 @@ const Chat = ({user, loggedUser, text, friend, chat, handleSubmit, handleAddFrie
                                     })
                                     :
                                     <div className='bubble-container'>
-                                    <div className='bubble sender sb1'>
-                                        <div><span>{'This is the very first time you chat'}</span></div>
+                                        <div className='bubble sender sb1'>
+                                            <div><span>{'This is the very first time you chat'}</span></div>
+                                        </div>
                                     </div>
-                                </div>
                                 }
                             </div>
                             <div className='separator'>
@@ -207,9 +206,7 @@ const Chat = ({user, loggedUser, text, friend, chat, handleSubmit, handleAddFrie
                                         onKeyDown={(e) => {if (e.code === 'Enter') {handleEnter()}}}
                                         onChange={e => setText(e.target.value)}/>
                                 </label>
-                                <Button text={'send'} handleAction={() => handleEnter()}>
-                                    Send
-                                </Button>
+                                <Button text={'send'} handleAction={() => handleEnter()} />
                             </div>
                         </ChatContainer>
     				</div>

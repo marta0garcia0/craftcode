@@ -40,11 +40,10 @@ const Grid = ({loggedUser = null, users, handleUserSelection}) => {
             {users.sort((userA, userB) => {
                     if (loggedUser && userA.friends && userA.friends.find((friend) => friend.user.id === loggedUser.id)) {
                         return -1;
-                    } else {
-                        return 1;
                     }
+                    return 1;
                 })
-                .map(user => <Item key={user.id} onClick={() => handleUserSelection(user)}>
+                .map(user => <Item className='user-item' key={user.id} onClick={() => handleUserSelection(user)}>
                 <UserBox loggedUser={loggedUser} user={user}></UserBox>
             </Item>)}
         </Container>
