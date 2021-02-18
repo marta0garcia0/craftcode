@@ -29,7 +29,7 @@ Tool to list users, select, add as friend and chat
 3. Run `yarn docker:run` (or `npm run docker:run`).
 if this doesn't work, use command line with sudo
 ###### sudo docker build . -t craftcode/cra-docker
-###### sudo docker run -p 8080:80 craftcode/cra-docker --name react
+###### sudo docker run -p 8080:80 craftcode/cra-docker
 ###### to stop docker
 ###### sudo  docker rm -f react
 

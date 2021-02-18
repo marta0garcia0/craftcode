@@ -38,7 +38,7 @@
     "test": "jest",
     "deploy": "now",
     "docker:build": "docker build . -t craftcode/cra-docker",
-    "docker:run": "docker run -p 8080:80 craftcode/cra-docker --name react",
+    "docker:run": "docker run -p 8080:80 craftcode/cra-docker",
     "docker:stop": "docker rm -f react"
   },
   "resolutions": {
