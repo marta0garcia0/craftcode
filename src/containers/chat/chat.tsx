@@ -203,7 +203,7 @@ const Chat = ({user, loggedUser, text, friend, chat, handleSubmit, handleAddFrie
                                 <label>
                                     Write a message:
                                     <Input type="text" value={text} name="name"
-                                        onKeyDown={(e) => {if (e.code === 'Enter') {handleEnter()}}}
+                                        onKeyDown={(e) => {if (e.nativeEvent.code === 'Enter') {handleEnter()}}}
                                         onChange={e => setText(e.target.value)}/>
                                 </label>
                                 <Button text={'send'} handleAction={() => handleEnter()} />
